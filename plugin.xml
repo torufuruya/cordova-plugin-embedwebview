@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova.plugin.embedwebview" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"><name>EmbedWebview</name><js-module name="EmbedWebview" src="www/EmbedWebview.js"><clobbers target="cordova.plugins.EmbedWebview" /></js-module><platform name="ios"><config-file parent="/*" target="config.xml"><feature name="EmbedWebview"><param name="ios-package" value="EmbedWebview" /></feature></config-file><source-file src="src/ios/EmbedWebview.m" /></platform></plugin>
