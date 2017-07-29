@@ -2,6 +2,7 @@
 
 #import <Cordova/CDV.h>
 
+#define SLIDE_TIME 0.12
 @interface EmbedWebview : CDVPlugin {
   // Member variables go here.
     UIWebView *webView;
@@ -32,13 +33,33 @@
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-
+- (void)move_right:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSString* urlString = [command.arguments objectAtIndex:0];
+    
+    [self MoveToRight];
+    
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+- (void)move_left:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSString* urlString = [command.arguments objectAtIndex:0];
+    
+    [self MoveToLeft];
+    
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 -(void)showWebViewLoadURL:(NSString*)urlString{
     if (webView == nil){
         webView = [[UIWebView alloc] init];
         CGRect rect = self.viewController.view.frame;
         rect.origin.y = 108;
         rect.size.height = rect.size.height - 108;
+        webView.backgroundColor = [UIColor whiteColor];
         webView.frame = rect;
         webView.scalesPageToFit = YES;
         
@@ -54,9 +75,38 @@
 }
 -(void)hideWebView{
     if (webView != nil){
+        NSURL *url = [NSURL URLWithString:@""];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [webView loadRequest:request];
         webView.hidden = YES;
     }
-    
+}
+-(void)MoveToRight{
+    if (webView == nil) return;
+    UIView *view = webView;
+    CGRect originRect = webView.frame;
+    CGRect movedRect = self.viewController.view.frame;
+    movedRect.origin.x = 220;
+    movedRect.origin.y = 108;
+    movedRect.size.height = movedRect.size.height - 108;
+    view.frame = originRect;
+    [UIView animateWithDuration:SLIDE_TIME animations:^{
+        view.frame = movedRect;
+    }];
+}
+-(void)MoveToLeft{
+    if (webView == nil) return;
+    UIView *view = webView;
+    CGRect originRect = webView.frame;
+    CGRect movedRect = self.viewController.view.frame;
+    movedRect.origin.x = 0;
+    movedRect.origin.y = 108;
+    movedRect.size.height = movedRect.size.height - 108;
+    view.frame = originRect;
+    [UIView animateWithDuration:SLIDE_TIME animations:^{
+        view.frame = movedRect;
+    }];
+
 }
 
 - (void)open_a:(CDVInvokedUrlCommand*)command
@@ -69,6 +119,7 @@
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
+
 -(void)close_a:(CDVInvokedUrlCommand*)command{
     CDVPluginResult* pluginResult = nil;
     NSString* urlString = [command.arguments objectAtIndex:0];
@@ -99,6 +150,9 @@
 }
 -(void)hideWebView_a{
     if (webView_a != nil){
+        NSURL *url = [NSURL URLWithString:@""];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [webView_a loadRequest:request];
         webView_a.hidden = YES;
     }
     
