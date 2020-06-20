@@ -63,7 +63,7 @@
         webView.frame = rect;
 //        webView.scalesPageToFit = YES;
         
-        webView.delegate = self.commandDelegate;
+//        webView.delegate = self.commandDelegate;
         
         [self.viewController.view addSubview:webView];
     }
@@ -138,7 +138,7 @@
         webView_a.frame = rect;
 //        webView_a.scalesPageToFit = YES;
         
-        webView_a.delegate = self.commandDelegate;
+//        webView_a.delegate = self.commandDelegate;
         
         [self.viewController.view addSubview:webView_a];
     }
