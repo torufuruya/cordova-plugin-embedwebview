@@ -5,8 +5,8 @@
 #define SLIDE_TIME 0.12
 @interface EmbedWebview : CDVPlugin {
   // Member variables go here.
-    UIWebView *webView;
-	UIWebView *webView_a;
+    WKWebView *webView;
+	WKWebView *webView_a;
 }
 
 - (void)open:(CDVInvokedUrlCommand*)command;
@@ -55,13 +55,13 @@
 }
 -(void)showWebViewLoadURL:(NSString*)urlString{
     if (webView == nil){
-        webView = [[UIWebView alloc] init];
+        webView = [[WKWebView alloc] init];
         CGRect rect = self.viewController.view.frame;
         rect.origin.y = 108;
         rect.size.height = rect.size.height - 108;
         webView.backgroundColor = [UIColor whiteColor];
         webView.frame = rect;
-        webView.scalesPageToFit = YES;
+//        webView.scalesPageToFit = YES;
         
         webView.delegate = self.commandDelegate;
         
@@ -131,12 +131,12 @@
 }
 -(void)showWebViewLoadURL_a:(NSString*)urlString{
     if (webView_a == nil){
-        webView_a = [[UIWebView alloc] init];
+        webView_a = [[WKWebView alloc] init];
         CGRect rect = self.viewController.view.frame;
         rect.origin.y = 64;
         rect.size.height = rect.size.height - 64;
         webView_a.frame = rect;
-        webView_a.scalesPageToFit = YES;
+//        webView_a.scalesPageToFit = YES;
         
         webView_a.delegate = self.commandDelegate;
         
