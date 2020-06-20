@@ -1,6 +1,7 @@
 /********* EmbedWebview.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
+#import <WebKit/WebKit.h>
 
 #define SLIDE_TIME 0.12
 @interface EmbedWebview : CDVPlugin {
